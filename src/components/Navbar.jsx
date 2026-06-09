@@ -14,6 +14,20 @@ const navItems = [
   { id: 'contact', label: 'Book Now' }
 ];
 
+const AvatarCircle = ({ size = 34, isAdmin, currentUser }) => (
+  <div
+    className="nav-avatar-circle"
+    style={{
+      width: size, height: size, fontSize: size * 0.4,
+      background: isAdmin
+        ? 'linear-gradient(135deg, #ef4444, #b91c1c)'
+        : 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))'
+    }}
+  >
+    {currentUser?.avatar || currentUser?.name?.[0]?.toUpperCase() || '?'}
+  </div>
+);
+
 const Navbar = ({ theme, toggleTheme, userLocation }) => {
   const { currentUser, logout, isAdmin, isTraveller } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,21 +102,6 @@ const Navbar = ({ theme, toggleTheme, userLocation }) => {
     setMobileMenuOpen(false);
     logout();
   };
-
-  // Avatar: initials circle
-  const AvatarCircle = ({ size = 34 }) => (
-    <div
-      className="nav-avatar-circle"
-      style={{
-        width: size, height: size, fontSize: size * 0.4,
-        background: isAdmin
-          ? 'linear-gradient(135deg, #ef4444, #b91c1c)'
-          : 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))'
-      }}
-    >
-      {currentUser?.avatar || currentUser?.name?.[0]?.toUpperCase() || '?'}
-    </div>
-  );
 
   return (
     <>
@@ -182,7 +181,7 @@ const Navbar = ({ theme, toggleTheme, userLocation }) => {
                 onClick={() => setProfileOpen(p => !p)}
                 aria-label="User profile menu"
               >
-                <AvatarCircle />
+                <AvatarCircle isAdmin={isAdmin} currentUser={currentUser} />
                 <div className="nav-avatar-info">
                   <span className="nav-avatar-name">
                     {currentUser?.name?.split(' ')[0] || 'User'}
@@ -203,7 +202,7 @@ const Navbar = ({ theme, toggleTheme, userLocation }) => {
                   >
                     {/* User Info */}
                     <div className="npd-user-info">
-                      <AvatarCircle size={44} />
+                      <AvatarCircle size={44} isAdmin={isAdmin} currentUser={currentUser} />
                       <div>
                         <div className="npd-name">{currentUser?.name}</div>
                         <div className="npd-email">{currentUser?.email}</div>
@@ -281,7 +280,7 @@ const Navbar = ({ theme, toggleTheme, userLocation }) => {
             >
               {/* Mobile user info */}
               <div className="mobile-nav-user">
-                <AvatarCircle size={42} />
+                <AvatarCircle size={42} isAdmin={isAdmin} currentUser={currentUser} />
                 <div>
                   <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>{currentUser?.name}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 2 }}>{currentUser?.email}</div>

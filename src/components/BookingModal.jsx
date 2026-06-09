@@ -6,6 +6,9 @@ import {
   FiAlertCircle, FiInfo, FiTag, FiPercent, FiChevronDown, FiChevronUp, FiShield, FiZap
 } from 'react-icons/fi';
 
+import { ALL_DESTINATIONS, INDIA_STATES, TRAVEL_TYPES } from '../utils/travelData';
+import { useAuth } from '../context/AuthContext';
+
 // ── Coupon Codes Database ─────────────────────────────────────────────────
 const VALID_COUPONS = {
   'YATRA10':  { discount: 10, type: 'percent', label: '10% Off', desc: 'Flat 10% on all bookings' },
@@ -14,8 +17,6 @@ const VALID_COUPONS = {
   'SUMMER25': { discount: 25, type: 'percent', label: '25% Off', desc: 'Summer travel season deal' },
   'SAVE5000': { discount: 5000, type: 'flat', label: '₹5,000 Off', desc: 'Flat ₹5,000 cashback' },
 };
-import { ALL_DESTINATIONS, INDIA_STATES, TRAVEL_TYPES } from '../utils/travelData';
-import { useAuth } from '../context/AuthContext';
 
 // ── Step indicator ────────────────────────────────────────────────────────
 const STEPS = [
